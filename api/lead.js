@@ -3,6 +3,7 @@ const TG = { token: "8693289047:AAFhv6guzCyXsN5pEBUMDUkWApa2agoDqH0", chat_id: "
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
   const { domain, phone } = req.body || {};
   try {
