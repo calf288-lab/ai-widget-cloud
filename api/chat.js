@@ -19,8 +19,9 @@ export default async function handler(req, res) {
       headers: { 'Authorization': 'Bearer ' + process.env.GROQ_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [{ role: 'user', content: prompt }], max_tokens: 150 })
     });
-    const j = await r.json();
-    res.json({ reply: (j.choices && j.choices[0].message.content) || 'Сейчас не успеваю ответить. Оставьте телефон — перезвоним в течение часа.' });
+       const j = await r.json();
+    if (!j.choices) return res.json({ reply: 'ОШИБКА GROQ ' + r.status + ': ' + JSON.stringify(j.error || j) });
+    res.json({ reply: j.choices[0].message.content });аса.' });
   } catch (e) {
     res.json({ reply: 'Сейчас не успеваю ответить. Оставьте телефон — перезвоним в течение часа.' });
   }
